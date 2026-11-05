@@ -1,0 +1,55 @@
+{
+  "verified_at_utc": "2026-11-05T19:34:58.754214+00:00",
+  "fixture_regeneration_semantically_identical": true,
+  "technical_assertions_passed": 26,
+  "external_urls_in_runtime": [],
+  "fetch_calls": [
+    "fetch('./fixtures.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('fixture_unavailable');return r.json();});await loadScenario('healthy',{force:true});}catch(error){setBusy(false);message('\u0646\u0645\u0648\u0646\u0647\u200c\u0647\u0627\u06cc \u0633\u0627\u062e\u062a\u06af\u06cc \u0628\u0627\u0631\u06af\u0630\u0627\u0631\u06cc \u0646\u0634\u062f\u0646\u062f. \u0627\u06cc\u0646 \u0646\u0633\u062e\u0647 \u0628\u0647 fixtures.json \u0645\u062d\u0644\u06cc \u06cc\u0627 \u0628\u0633\u062a\u0647\u0654 \u0645\u0633\u062a\u0642\u0644 \u0646\u06cc\u0627\u0632 \u062f\u0627\u0631\u062f.',true);renderAll();}}"
+  ],
+  "medical_engine": false,
+  "medical_analysis_count": 0,
+  "fresh_visual_qa": false,
+  "publication_status": "not published; destination and access pending",
+  "files": {
+    "README.md": {
+      "bytes": 1448,
+      "sha256": "a3a985708af85f1520346707dde3a18e6cf6a734a291faa48edf1082ba2e0aac"
+    },
+    "generate_fixtures.py": {
+      "bytes": 3967,
+      "sha256": "9503af90d43ab21817f91e91b39f1647d3437deaf0a06a81ceadda61c672ce25"
+    },
+    "vercel.json": {
+      "bytes": 399,
+      "sha256": "0cb42382021f8fb640e6a7e9407dcec5c8b41516fbcee051887342680d58c8ea"
+    },
+    "app.mjs": {
+      "bytes": 26157,
+      "sha256": "6a5113cc44f2fa3266c91b13ff563ee881a99bc1adb2440a322a7bd2f2eea368"
+    },
+    "test_intake.mjs": {
+      "bytes": 6109,
+      "sha256": "26c74e3aec5477341c81fecd2f7392d7bd56d64b8a38fd4d9cbbce05a3b9f66e"
+    },
+    ".gitignore": {
+      "bytes": 102,
+      "sha256": "430e62eb9cef42073d7eaa02ea2315874017f82c4137c91227f380adcb531f4b"
+    },
+    "intake.mjs": {
+      "bytes": 9607,
+      "sha256": "cf92c1e57b5229a6a223f263914f34a4fb0d7a017f366305a7dad031af367f5b"
+    },
+    "index.html": {
+      "bytes": 9650,
+      "sha256": "e9ba9a000e0b53f4bd3c5ebcda144c16ff4b329b2fa7a5e5774b5889daa648e5"
+    },
+    "styles.css": {
+      "bytes": 16141,
+      "sha256": "e84f4dcdfb95f91c0c717c21b3c83640b5c1a34f6c26a3f62d3f2e08aac89d39"
+    },
+    "fixtures.json": {
+      "bytes": 1600531,
+      "sha256": "f05ae5cee683431e19dd7e007ecccde4c3ec0daa9c860d99807f35b1b8b45258"
+    }
+  }
+}

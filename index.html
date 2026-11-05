@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>بازبینی پرونده تصویری | نمونه پژوهشی</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#viewerPanel">رفتن به نمایش تصویر</a>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">MR</span><div><h1>بازبینی پروندهٔ تصویری</h1><p>فضای پژوهش <span aria-hidden="true">/</span> مرحلهٔ اول</p></div></div>
+    <button id="exportButton" class="button primary" disabled><span aria-hidden="true">↓</span> دریافت یادداشت JSON</button>
+  </header>
+  <main>
+    <section class="research-banner" aria-label="دامنه نمونه پژوهشی"><span class="banner-dot" aria-hidden="true"></span><div><strong>فقط نمونهٔ ساختگی با الگوهای هندسی</strong><p>این نمونه، موتور تحلیل یا تشخیص ندارد. تصویر بیمار وارد نکنید؛ فقط فایل‌های ساختگیِ شناخته‌شده با بررسی هش پذیرفته می‌شوند.</p></div><span class="quiet-chip">محلی • بدون ارسال</span></section>
+    <section class="case-toolbar" aria-label="انتخاب پرونده ساختگی">
+      <div class="scenario-field"><label for="scenarioSelect">سناریوی ورودی</label><select id="scenarioSelect"><option value="healthy">نمونهٔ سالم</option><option value="missing">فایل مفقود</option><option value="corrupt">فایل خراب</option><option value="unsupported">قالب پشتیبانی‌نشده</option><option value="duplicates">فایل تکراری</option></select></div>
+      <button id="loadButton" class="button secondary">بارگذاری سناریو</button>
+      <label class="button secondary file-button" for="fileInput">انتخاب فایل نمونه<input id="fileInput" type="file" multiple aria-describedby="fileHelp"></label>
+      <button id="resetButton" class="button ghost">شروع دوباره</button>
+      <p id="fileHelp" class="toolbar-note">فقط فایل‌های همین مجموعهٔ آزمایشی؛ نام فایل، مجوز خواندن آن نیست.</p>
+    </section>
+    <div id="statusMessage" class="status-message" role="status" aria-live="polite">در حال آماده‌سازی نمونه…</div>
+    <section class="coverage" aria-label="پوشش بررسی">
+      <div class="coverage-item"><span class="coverage-label">دریافت‌شده</span><strong id="receivedCount">۰</strong><small>فایل در این بارگذاری</small></div>
+      <div class="coverage-item"><span class="coverage-label">خوانده‌شده</span><strong id="readCount">۰</strong><small id="readDetail">ساختار یا متن خوانده نشده</small></div>
+      <div class="coverage-item muted"><span class="coverage-label">تحلیل‌شده</span><strong id="analyzedCount">۰</strong><small>موتور تحلیل متصل نیست</small></div>
+      <div class="coverage-context"><span class="eyebrow">پروندهٔ فعال</span><strong id="caseTitle">—</strong><span id="inventorySummary">در انتظار ورودی</span></div>
+    </section>
+    <div class="workspace">
+      <aside class="panel manifest-panel" aria-labelledby="manifestHeading">
+        <div class="panel-heading"><div><span class="eyebrow">ورودی‌ها</span><h2 id="manifestHeading">فهرست پرونده</h2></div><span id="fileCountBadge" class="count-badge">۰</span></div>
+        <div class="tab-bar" role="tablist" aria-label="نوع فهرست"><button id="seriesTab" role="tab" aria-selected="true" aria-controls="seriesList">سری‌ها</button><button id="filesTab" role="tab" aria-selected="false" aria-controls="fileList" tabindex="-1">همهٔ فایل‌ها</button></div>
+        <div id="seriesList" class="manifest-list" role="tabpanel" aria-labelledby="seriesTab"></div>
+        <div id="fileList" class="manifest-list" role="tabpanel" aria-labelledby="filesTab" hidden></div>
+        <div class="manifest-bottom"><h3>تطبیق با فهرست موردانتظار</h3><p>این مقایسه فقط برای همین مجموعهٔ ساختگی است؛ کامل بودن یک معاینهٔ واقعی را اثبات نمی‌کند.</p><div id="expectedInventory" class="expected-list"></div></div>
+        <details class="issues-box"><summary>خطاها و محدودیت‌های ورودی <span id="issueCount">۰</span></summary><ul id="issueList"></ul></details>
+      </aside>
+      <section id="viewerPanel" class="panel viewer-panel" aria-labelledby="viewerHeading" tabindex="-1">
+        <div class="panel-heading"><div><span class="eyebrow">مشاهدهٔ پیکسل‌های خوانده‌شده</span><h2 id="viewerHeading">نمایش تصویر</h2></div><span id="imageBadge" class="quiet-chip">بدون تصویر</span></div>
+        <div id="viewport" class="viewport"><canvas id="imageCanvas" width="96" height="96" tabindex="0" aria-label="تصویر ساختگی؛ کلیدهای چپ و راست برای تغییر برش و کلید ورود برای انتخاب مرکز" aria-describedby="canvasHelp" hidden></canvas><div id="viewerEmpty" class="viewer-empty"><span aria-hidden="true">▧</span><strong>تصویری انتخاب نشده است</strong><p>یک سری قابل خواندن را از فهرست انتخاب کنید.</p></div><span id="viewportLabel" class="viewport-label" hidden>الگوی هندسی ساختگی</span><span id="pointOverlay" class="point-overlay" hidden></span></div>
+        <div class="slice-control"><button id="previousSlice" class="icon-button" aria-label="برش قبلی" disabled>→</button><label class="sr-only" for="sliceSlider">شمارهٔ برش در سری انتخاب‌شده</label><input id="sliceSlider" type="range" min="0" max="0" value="0" disabled><button id="nextSlice" class="icon-button" aria-label="برش بعدی" disabled>←</button><output id="slicePosition" for="sliceSlider">۰ / ۰</output></div>
+        <div class="window-controls"><div><label for="windowCenter">مرکز پنجره <output id="centerValue">—</output></label><input id="windowCenter" type="range" min="0" max="4095" value="2048" disabled></div><div><label for="windowWidth">عرض پنجره <output id="widthValue">—</output></label><input id="windowWidth" type="range" min="1" max="8190" value="4096" disabled></div><button id="resetWindow" class="text-button" disabled>تنظیم خودکار نمایش</button></div>
+        <div class="point-controls"><div><label for="pointX">ستون x</label><input id="pointX" type="number" min="0" step="1" inputmode="numeric" disabled></div><div><label for="pointY">ردیف y</label><input id="pointY" type="number" min="0" step="1" inputmode="numeric" disabled></div><button id="addNoteButton" class="button secondary" disabled>ثبت نقطه در یادداشت</button></div>
+        <p id="canvasHelp" class="helper-text">کلیک روی تصویر برای انتخاب نقطه؛ مختصات پیکسل از صفر شروع می‌شود. تغییر پنجره فقط نمایش را عوض می‌کند.</p>
+        <details class="geometry-box"><summary>شناسه‌ها و هندسهٔ تصویر</summary><dl id="geometryDetails" class="metadata-grid"></dl></details>
+      </section>
+      <aside class="panel notes-panel" aria-labelledby="notesHeading">
+        <div class="panel-heading"><div><span class="eyebrow">ثبت دستی و قابل ردیابی</span><h2 id="notesHeading">یادداشت بررسی</h2></div><span id="noteCount" class="count-badge">۰</span></div>
+        <div class="note-intro"><span class="manual-tag">بدون تولید خودکار</span><p>هر یادداشت به همان سری، تصویر و نقطه برمی‌گردد. دسته‌بندی و متن را پژوهشگر ثبت می‌کند.</p></div>
+        <div id="notesList" class="notes-list"></div>
+        <div class="report-summary"><label for="reportText">جمع‌بندی پژوهشی</label><textarea id="reportText" rows="5" placeholder="جمع‌بندی دستی دربارهٔ روند بازبینی نمونه" disabled></textarea><p id="editStatus">فقط در حافظهٔ این صفحه؛ بدون ذخیرهٔ خودکار</p></div>
+        <details class="source-report"><summary>متن همراهِ ساختگی <span id="reportCount">۰</span></summary><div id="sourceReports"></div></details>
+      </aside>
+    </div>
+    <footer class="app-footer"><span>دریافت فایل ≠ خواندن فایل ≠ تحلیل تصویر</span><span>خروجی JSON فقط با درخواست شما در دستگاه دانلود می‌شود.</span></footer>
+  </main>
+  <dialog id="discardDialog" aria-labelledby="discardHeading"><form method="dialog"><h2 id="discardHeading">ویرایش‌های این پرونده کنار گذاشته شوند؟</h2><p>یادداشت‌ها خودکار ذخیره نمی‌شوند. برای نگه‌داشتن آن‌ها ابتدا خروجی JSON بگیرید.</p><div class="dialog-actions"><button value="cancel" class="button secondary">بازگشت به یادداشت‌ها</button><button value="discard" class="button primary">کنار گذاشتن و ادامه</button></div></form></dialog>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

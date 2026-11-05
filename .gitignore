@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+.vercel/
+node_modules/
+*.nii
+*.nii.gz
+*.dcm
+*.ipynb
+*.pt
+*.pth
+*.pdf
+*.docx
